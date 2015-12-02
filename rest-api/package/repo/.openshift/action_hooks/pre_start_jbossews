@@ -1,0 +1,16 @@
+#!/bin/bash
+
+appname=`echo $OPENSHIFT_APP_NAME`
+
+case "$appname" in
+
+  *dev)  export JAVA_OPTS_EXT="${JAVA_OPTS_EXT} -Dcisco.life=dev -Dcisco.logdir=${OPENSHIFT_LOG_DIR}";;
+
+  *stage)  export JAVA_OPTS_EXT="${JAVA_OPTS_EXT} -Dcisco.life=stage -Dcisco.logdir=${OPENSHIFT_LOG_DIR}";;
+
+  *prod)  export JAVA_OPTS_EXT="${JAVA_OPTS_EXT} -Dcisco.life=prod -Dcisco.logdir=${OPENSHIFT_LOG_DIR}";;
+
+  *) export JAVA_OPTS_EXT="${JAVA_OPTS_EXT} -Dcisco.life=dev -Dcisco.logdir=${OPENSHIFT_LOG_DIR}";;
+
+esac
+

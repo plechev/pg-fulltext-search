@@ -1,0 +1,4 @@
+#!/bin/bash
+# unless there are different commands to execute, we just call the START script:
+source $OPENSHIFT_REPO_DIR.openshift/action_hooks/pre_start_jbossews
+

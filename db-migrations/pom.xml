@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <!-- $CHANGEME$ GAV Parameters -->
+        <artifactId>example</artifactId>
+        <groupId>com.cisco.ccit</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>db-migrations</artifactId>
+
+    <description>
+        Contains Flyway DB migration scripts and Maven commands to evolve the schema.
+        Executing Maven build of this module guarantees that the target DB will be updated with the latest migration scripts.
+    </description>
+
+    <dependencies>
+        <!-- You will typically add here the JDBC drivers library for the DB in use: Oracle, PostgreSQL, ...
+             These are required by FlyWay to connect to the DB and execute the migration scripts
+        -->
+        <!--
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <!--
+                        FlyWay configuration properties which are common for all environments (DEV/Local/Jenkins/etc...).
+                        Anything which is environment-specific must go in the appropriate `flyway/flyway-${cisco.life}.properties` file
+                    -->
+                    <configFile>flyway/flyway-${cisco.life}.properties</configFile>
+                    <locations>
+                        <location>migrations</location>
+                    </locations>
+                </configuration>
+                <!-- Execute DB migrations on each build, just before the integration tests are executed -->
+                <executions>
+                    <execution>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>migrate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

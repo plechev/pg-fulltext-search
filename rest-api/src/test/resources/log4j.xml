@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender class="org.apache.log4j.ConsoleAppender" name="console">
+        <param value="DEBUG" name="Threshold"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param value="%d %p {%t} [%c] | %m%n" name="ConversionPattern"/>
+        </layout>
+    </appender>
+
+    <logger name="com.cisco.ccit.example">
+        <level value="DEBUG"/>
+    </logger>
+
+    <!-- CXF Payload logging: minimum INFO required -->
+    <logger name="org.apache.cxf.interceptor.LoggingInInterceptor">
+        <level value="INFO"/>
+    </logger>
+    <logger name="org.apache.cxf.interceptor.LoggingOutInterceptor">
+        <level value="INFO"/>
+    </logger>
+
+    <root>
+        <level value="WARN"/>
+        <appender-ref ref="console"/>
+    </root>
+</log4j:configuration>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <!-- $CHANGEME$ GAV Parameters -->
+        <artifactId>example</artifactId>
+        <groupId>com.cisco.ccit</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>module-rest</artifactId>
+    <!-- Packaging indicates we are building WAR file out of this module -->
+    <packaging>war</packaging>
+
+    <properties>
+        <warFileName>${project.artifactId}</warFileName>
+    </properties>
+
+    <dependencies>
+        <!-- module dependencies -->
+        <dependency>
+            <groupId>com.cisco.ccit</groupId>
+            <artifactId>module-functional</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- other bundled dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+        </dependency>
+        <!-- REST IT tests  -->
+        <dependency>
+            <groupId>org.jmockring</groupId>
+            <artifactId>jmockring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jmockring</groupId>
+            <artifactId>jmockring-spi</artifactId>
+        </dependency>
+    </dependencies>
+
+
+    <profiles>
+        <profile>
+            <!-- Activate this profile in order to build the deployable Openshift TAR archive  -->
+            <id>lae</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>buildnumber-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/package/dependencies/jbossews/webapps</outputDirectory>
+                            <warName>${warFileName}</warName>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+
+</project>
