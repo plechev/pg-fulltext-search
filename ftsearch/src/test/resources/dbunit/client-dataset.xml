@@ -1,0 +1,13 @@
+<dataset>
+
+    <client id="3" name="Joe" bio="Joe always wanted to become a pilot"/>
+    <client id="4" name="Han Solo" bio="Rogue fighter pilot"/>
+    <client id="5" name="Kylo Ren" bio="Sith Lord wannabe. Wants to rule the galaxy. Hates white colour"/>
+
+    <client_order id="1" client_id="3" description="Joe's first ever order" date="2017-01-17 00:21:13"/>
+
+    <client_preference client_id="3" location="Stonehenge" products="Bubble gum, space suits"/>
+    <client_preference client_id="4" location="Faraway Galaxy" products="pilot simulator, pilot manual"/>
+    <client_preference client_id="5" location="Faraway Galaxy" products="Crossguard lightsaber"/>
+
+</dataset>

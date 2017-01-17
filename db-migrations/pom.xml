@@ -18,15 +18,16 @@
     </description>
 
     <dependencies>
-        <!-- You will typically add here the JDBC drivers library for the DB in use: Oracle, PostgreSQL, ...
+        <!--
+            You will typically add here the JDBC drivers library for the DB in use: Oracle, PostgreSQL, ...
              These are required by FlyWay to connect to the DB and execute the migration scripts
         -->
-        <!--
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-        -->
+
     </dependencies>
 
     <build>

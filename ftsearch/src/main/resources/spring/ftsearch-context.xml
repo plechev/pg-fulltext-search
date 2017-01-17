@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:env="http://asf.cisco.com/schema/spring-environment"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://asf.cisco.com/schema/spring-environment http://asf.cisco.com/schema/spring-environment.xsd">
+
+    <!--
+        Custom Spring XML tag which serves the same purpose as context:property-placeholder plus it
+        adds advanced lifecycle-specific files discovery, preserve properties in Spring environment, in-file placeholder replacement and more.
+        See the documentation for each attribute fo its semantics (in IntelliJ just do CTRL+Q on top of the attribute name).
+
+        In any case, it is far more convenient to use this tag in-lieu of the aforementioned `context:property-placeholder`
+     -->
+    <env:properties basename="/config/ftsearch" failOnNotFound="false"/>
+
+    <context:component-scan base-package="com.cisco.ccit.ftsearch"/>
+
+    <import resource="classpath:/spring/ftsearch-repository-config.xml"/>
+
+
+</beans>
