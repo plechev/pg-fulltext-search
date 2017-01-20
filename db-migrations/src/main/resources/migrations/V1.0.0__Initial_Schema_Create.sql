@@ -1,4 +1,4 @@
---
+﻿--
 -- This is a RDBMS specific SQL script containing the initial DDL
 -- For schema evolution with FlyWay see: http://flywaydb.org/getstarted/how.html
 --
@@ -13,21 +13,23 @@
 
 
 SET search_path = public, pg_catalog;
-DROP TRIGGER trigger_ts_document_update ON public.client;
-DROP TRIGGER trigger_ts_client_order ON public.client_order;
-DROP TRIGGER trigger_ts_client_preference ON public.client_preference;
+DROP TRIGGER IF EXISTS trigger_ts_document_update ON public.client;
+DROP TRIGGER IF EXISTS trigger_ts_client_order ON public.client_order;
+DROP TRIGGER IF EXISTS trigger_ts_client_preference ON public.client_preference;
+/*
 ALTER TABLE ONLY public.client_order DROP CONSTRAINT client_order_fk;
 ALTER TABLE ONLY public.client_preference DROP CONSTRAINT client_preference_fk;
 ALTER TABLE ONLY public.client_preference DROP CONSTRAINT client_preference_pkey;
 ALTER TABLE ONLY public.client_order DROP CONSTRAINT client_order_pkey;
 ALTER TABLE ONLY public.client DROP CONSTRAINT client_pkey;
-DROP INDEX public.client_ts_idx;
-DROP FUNCTION public.search (p_query text, p_mode text);
-DROP FUNCTION public.ts_client_aux_data_update ();
-DROP FUNCTION public.ts_document_update ();
-DROP TABLE public.client_preference;
-DROP TABLE public.client_order;
-DROP TABLE public.client;
+*/
+DROP INDEX IF EXISTS public.client_ts_idx;
+DROP FUNCTION IF EXISTS public.search (p_query text, p_mode text);
+DROP FUNCTION IF EXISTS public.ts_client_aux_data_update ();
+DROP FUNCTION IF EXISTS public.ts_document_update ();
+DROP TABLE IF EXISTS public.client_preference CASCADE;
+DROP TABLE IF EXISTS public.client_order CASCADE;
+DROP TABLE IF EXISTS public.client CASCADE;
 SET check_function_bodies = false;
 --
 -- Definition for function ts_document_update (OID = 46422) :
