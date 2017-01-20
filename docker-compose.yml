@@ -9,9 +9,9 @@
 version: '2'
 
 services:
-  postgres:
+postgres:
     ports:
-      "5432:5432"
+      - "5432:5432"
     image: postgres:9.2.18
     environment:
       - POSTGRES_USER=admin7hcyx5u
@@ -19,4 +19,4 @@ services:
       - POSTGRES_DB=ftsearch
     volumes:
     ## this is NOT EXECUTED by Flyway:
-      - ./db-migrations/src/main/resources/migrations/V1.0.0__Initial_Schema_Create.sql
+      - ./db-migrations/src/main/resources/migrations/V1.0.0__Initial_Schema_Create.sql:/docker-entrypoint-initdb.d/01-init.sql

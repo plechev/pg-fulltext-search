@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!-- $CHANGEME$ GAV parameters-->
     <artifactId>ftsearch-parent</artifactId>
     <groupId>com.cisco.ccit</groupId>
     <packaging>pom</packaging>
@@ -19,36 +18,13 @@
         <maven>3.1.1</maven>
     </prerequisites>
 
-
-    <!-- Define SCM for your project-->
-
-    <scm>
-        <!-- $CHANGEME$ SCM locations -->
-        <url>https://gitscm.cisco.com/projects/ASF/repos/tmpl-rest-cxf-spring-hibernate/browse</url>
-        <connection>scm:git:ssh://git@gitscm.cisco.com/asf/tmpl-rest-cxf-spring-hibernate.git</connection>
-        <developerConnection>scm:git:ssh://git@gitscm.cisco.com/asf/tmpl-rest-cxf-spring-hibernate.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
     <!-- Point to ASF space in Artifactory -->
     <repositories>
-        <repository>
-            <id>central-cisco</id>
-            <url>http://engci-maven.cisco.com/artifactory/asf-group</url>
-        </repository>
         <repository>
             <id>art-repo</id>
             <url>http://repo-art.cisco.com/artifactory/repo</url>
         </repository>
     </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>bms-artifactory-gpk</id>
-            <name>bms-artifactory-gpk-releases</name>
-            <url>http://engci-maven.cisco.com/artifactory/asf-group</url>
-        </pluginRepository>
-    </pluginRepositories>
-
 
     <properties>
         <!-- Cisco/ASF libraries versions -->
@@ -97,11 +73,6 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>
                 <version>${spring.version}</version>
             </dependency>
@@ -115,40 +86,6 @@
                 <artifactId>spring-data-jpa</artifactId>
                 <version>${spring-data.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-web</artifactId>
-                <version>${spring-security.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-tx</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-config</artifactId>
-                <version>${spring-security.version}</version>
-            </dependency>
-
-            <!-- CXF -->
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-                <version>${cxf.frontend.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>jaxb-impl</artifactId>
-                        <groupId>com.sun.xml.bind</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-transports-http</artifactId>
-                <version>${cxf.version}</version>
-            </dependency>
 
             <!-- Hibernate -->
             <dependency>
@@ -161,11 +98,6 @@
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-ehcache</artifactId>
-                <version>${hibernate.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
@@ -197,13 +129,6 @@
                 <groupId>c3p0</groupId>
                 <artifactId>c3p0</artifactId>
                 <version>${c3p0.version}</version>
-            </dependency>
-
-            <!-- JSON -->
-            <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-jaxrs</artifactId>
-                <version>${jackson.version}</version>
             </dependency>
 
             <!-- testing -->
@@ -312,7 +237,6 @@
             </exclusions>
         </dependency>
 
-
         <!-- common test dependencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -385,53 +309,9 @@
                         <scmBranchPropertyName>git.branchName</scmBranchPropertyName>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <!-- Globally configure how we build the WAR files: -->
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>2.6</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <addClasspath>true</addClasspath>
-                                <classpathPrefix>lib/</classpathPrefix>
-                                <classpathLayoutType>custom</classpathLayoutType>
-                                <customClasspathLayout>
-                                    $${artifact.artifactId}-$${artifact.baseVersion}.$${artifact.extension}
-                                </customClasspathLayout>
-                            </manifest>
-                            <manifestEntries>
-                                <Implementation-BuildNumber>${git.buildNumber}</Implementation-BuildNumber>
-                                <Implementation-GitBranch>${git.branchName}</Implementation-GitBranch>
-                                <Implementation-Build-Time>${maven.build.timestamp}</Implementation-Build-Time>
-                                <Implementation-Version>${project.version}</Implementation-Version>
-                            </manifestEntries>
-                        </archive>
-                        <outputFileNameMapping>@{artifactId}@-@{baseVersion}@.@{extension}@</outputFileNameMapping>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.5.5</version>
-                    <executions>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>single</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <tarLongFileMode>posix</tarLongFileMode>
-                        <appendAssemblyId>false</appendAssemblyId>
-                        <descriptors>
-                            <descriptor>assembly.xml</descriptor>
-                        </descriptors>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
 </project>
+

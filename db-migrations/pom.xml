@@ -3,8 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <!-- $CHANGEME$ GAV Parameters -->
-        <artifactId>example</artifactId>
+        <artifactId>ftsearch-parent</artifactId>
         <groupId>com.cisco.ccit</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -16,19 +15,6 @@
         Contains Flyway DB migration scripts and Maven commands to evolve the schema.
         Executing Maven build of this module guarantees that the target DB will be updated with the latest migration scripts.
     </description>
-
-    <dependencies>
-        <!--
-            You will typically add here the JDBC drivers library for the DB in use: Oracle, PostgreSQL, ...
-             These are required by FlyWay to connect to the DB and execute the migration scripts
-        -->
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-
-    </dependencies>
 
     <build>
         <plugins>
@@ -47,6 +33,7 @@
                     </locations>
                 </configuration>
                 <!-- Execute DB migrations on each build, just before the integration tests are executed -->
+                <!-- ********** DISABLED for this seed app **************
                 <executions>
                     <execution>
                         <phase>pre-integration-test</phase>
@@ -55,6 +42,7 @@
                         </goals>
                     </execution>
                 </executions>
+                -->
             </plugin>
         </plugins>
     </build>
