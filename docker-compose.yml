@@ -1,0 +1,22 @@
+#
+# Brings up a Postgres DB and the Simple Push API accessible at http://localhost:8080.
+#
+# $ docker run --rm -it -v $(pwd):/project -w /project maven:3.3.9-jdk-7 mvn clean package -DskipTests \
+#     && docker-compose up -d \
+#     && docker logs -f --tail 10 simplepushnotifications_app_1
+#
+
+version: '2'
+
+services:
+  postgres:
+    ports:
+      "5432:5432"
+    image: postgres:9.2.18
+    environment:
+      - POSTGRES_USER=admin7hcyx5u
+      - POSTGRES_PASSWORD=b4UBmuDuksG-
+      - POSTGRES_DB=ftsearch
+    volumes:
+    ## this is NOT EXECUTED by Flyway:
+      - ./db-migrations/src/main/resources/migrations/V1.0.0__Initial_Schema_Create.sql
